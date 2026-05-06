@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勇者數學決鬥 - Math Duel</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #2c3e50; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        #game-container { background: #34495e; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 400px; }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .hp-bar { background: #e74c3c; height: 15px; border-radius: 10px; width: 100px; border: 2px solid #fff; overflow: hidden; }
+        .hp-fill { background: #2ecc71; height: 100%; width: 100%; transition: width 0.3s; }
+        #question { font-size: 2.5em; margin: 20px 0; color: #f1c40f; }
+        input { font-size: 1.5em; width: 100px; padding: 10px; border-radius: 5px; border: none; text-align: center; }
+        button { font-size: 1.2em; padding: 10px 20px; margin-top: 15px; cursor: pointer; background: #3498db; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #2980b9; }
+        #msg { margin-top: 15px; font-weight: bold; height: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div class="stats">
+            <div>勇者 HP<div class="hp-bar"><div id="player-hp" class="hp-fill"></div></div></div>
+            <div>魔王 HP<div class="hp-bar"><div id="boss-hp" class="hp-fill"></div></div></div>
+        </div>
+
+        <div id="game-ui">
+            <div id="question">? + ?</div>
+            <input type="number" id="answer" placeholder="?" autofocus>
+            <br>
+            <button onclick="checkAnswer()">攻擊！</button>
+            <div id="msg"></div>
+        </div>
+    </div>
+
+    <script>
+        let playerHp = 100;
+        let bossHp = 100;
+        let currentAnswer = 0;
+
+        function generateQuestion() {
+            // 呢度可以改題目邏輯：例如改為除法、小數等
+            let n1 = Math.floor(Math.random() * 9) + 1;
+            let n2 = Math.floor(Math.random() * 9) + 1;
+            currentAnswer = n1 * n2;
+            document.getElementById('question').innerText = `${n1} × ${n2} = ?`;
+            document.getElementById('answer').value = '';
+            document.getElementById('answer').focus();
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const msg = document.getElementById('msg');
+
+            if (userAnswer === currentAnswer) {
+                bossHp -= 20;
+                msg.innerText = "💥 答啱喇！魔王受到傷害！";
+                msg.style.color = "#2ecc71";
+            } else {
+                playerHp -= 25;
+                msg.innerText = "❌ 答錯咗！魔王反擊！";
+                msg.style.color = "#e74c3c";
+            }
+
+            updateStats();
+            
+            if (bossHp <= 0) {
+                alert("恭喜！你打低咗魔王！");
+                resetGame();
+            } else if (playerHp <= 0) {
+                alert("勝敗乃兵家常事，再挑戰一次啦！");
+                resetGame();
+            } else {
+                generateQuestion();
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('player-hp').style.width = playerHp + "%";
+            document.getElementById('boss-hp').style.width = bossHp + "%";
+        }
+
+        function resetGame() {
+            playerHp = 100;
+            bossHp = 100;
+            updateStats();
+            generateQuestion();
+            document.getElementById('msg').innerText = "";
+        }
+
+        // 支援 Enter 鍵提交
+        document.getElementById('answer').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkAnswer();
+        });
+
+        generateQuestion();
+    </script>
+</body>
+</html>

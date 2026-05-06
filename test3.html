@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>體積和容量挑戰</title>
+    <style>
+        body { font-family: sans-serif; background: #0f1a1a; color: white; text-align: center; padding: 50px; }
+        .game-box { background: #1e2e2e; padding: 40px; border-radius: 20px; display: inline-block; border: 2px solid #10b981; }
+        input { padding: 10px; font-size: 20px; width: 150px; text-align: center; }
+        button { padding: 10px 20px; background: #10b981; border: none; color: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <h2>📦 建築師體積挑戰</h2>
+        <p>一個長方體：長 5cm, 寬 4cm, 高 3cm</p>
+        <h3>它的體積是多少 cm³？</h3>
+        <input type="number" id="ans">
+        <button onclick="check()">核對</button>
+        <p id="msg"></p>
+        <a href="index.html" style="color: #888; text-decoration: none; display: block; margin-top: 20px;">返回大廳</a>
+    </div>
+    <script>
+        function check() {
+            const val = document.getElementById('ans').value;
+            const msg = document.getElementById('msg');
+            if(val == 60) {
+                msg.innerText = "✅ 正確！5 x 4 x 3 = 60"; msg.style.color = "#10b981";
+            } else {
+                msg.innerText = "❌ 體積 = 長 x 寬 x 高"; msg.style.color = "#e74c3c";
+            }
+        }
+    </script>
+</body>
+</html>

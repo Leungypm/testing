@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>分數乘法挑戰</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 50px; }
+        .game-box { background: #333; padding: 40px; border-radius: 20px; display: inline-block; border: 2px solid #f1c40f; }
+        .math { font-size: 40px; margin: 20px; color: #f1c40f; }
+        input { width: 60px; font-size: 24px; text-align: center; margin: 5px; border-radius: 5px; }
+        button { padding: 10px 20px; font-size: 18px; cursor: pointer; background: #f1c40f; border: none; border-radius: 5px; }
+        .back { margin-top: 20px; display: block; color: #aaa; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <h2>🍕 分數乘法魔藥屋</h2>
+        <p>計算： 2/3 × 1/4 = ?</p>
+        <div class="math">2/12 ?</div>
+        <div>
+            <input type="number" id="n" placeholder="分子"> / <input type="number" id="d" placeholder="分母">
+        </div>
+        <button onclick="check()">提交答案</button>
+        <p id="msg"></p>
+        <a href="index.html" class="back">返回大廳</a>
+    </div>
+    <script>
+        function check() {
+            const n = document.getElementById('n').value;
+            const d = document.getElementById('d').value;
+            const msg = document.getElementById('msg');
+            if(n == 2 && d == 12) {
+                msg.innerText = "✅ 答對了！(進階：記得約簡成 1/6 哦)"; msg.style.color = "#2ecc71";
+            } else {
+                msg.innerText = "❌ 再算一次，分子乘分子，分母乘分母。"; msg.style.color = "#e74c3c";
+            }
+        }
+    </script>
+</body>
+</html>
